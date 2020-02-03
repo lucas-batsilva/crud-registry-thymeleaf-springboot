@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- Datatables bootstrap lib -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+        <title>Cartórios</title>
+        <style>
+            #conteudo {
+                padding: 120px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="conteudo">
+            <a class="btn btn-primary" th:href="@{/adicionar/}" >Adicionar cartório</a>
+            <br><br>
+            <table id="tb-paginacao" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th><h3>Cartórios</h3></th>
+                    </tr>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="cartorio : ${cartorios}">
+                        <td th:text="${cartorio.nome}"></td>
+                        <td>
+                            <a th:href="@{/editar/{id}(id=${cartorio.id})}" type="button" class="btn btn-primary btn-sm">Editar</a>
+                            <a th:href="@{/excluir/{id}(id=${cartorio.id})}" type="button" class="btn btn-danger btn-sm">Excluir</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </body>
+    <!-- Bootstrap Datatables lib para paginação -->
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+    <script>
+        // função para a paginação
+        $(document).ready( function () {
+            $('#tb-paginacao').DataTable({
+                "language": {
+                    "lengthMenu": "Mostrando _MENU_ cartórios por página",
+                    "zeroRecords": "Nenhum cartório encontrado",
+                    "info": "Mostrando página _PAGE_ de _PAGES_",
+                    "infoEmpty": "Nenhum cartório disponível",
+                    "infoFiltered": "(Filtrando de _MAX_ cartórios totais)",
+                    "search": "Pesquisar cartório: ",
+                    "oPaginate": {
+                        "sFirst":    "Primeiro",
+                        "sLast":    "Último",
+                        "sNext":    "Próximo",
+                        "sPrevious": "Anterior"
+                    }
+                }
+            });
+        });
+    </script>
+
+</html>

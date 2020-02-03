@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- Bootstrap lib -->
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+        <title>Adicionar cartório</title>
+        <style>
+            #conteudo {
+                padding: 120px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="conteudo">
+            <h3>Adicionar cartório</h3>
+            <form th:object="${cartorio}" th:action="@{/salvar}" method="POST">
+                <div class="form-group">
+
+                    <input type="hidden" class="form-control input-sm" id="id" th:field="*{id}">
+
+                    <div th:classappend="${#fields.hasErrors('nome')}? 'has-error'">
+                        <label for="nome">*Nome:</label>
+                        <input type="text" class="form-control" id="nome" placeholder="Digite o nome" th:field="*{nome}">
+                        <!-- mensagem de erro para nome em branco -->
+                        <div th:each="detailedError : ${#fields.detailedErrors()}">
+                            <small class="text-danger" th:text="${detailedError.message}"></small>
+                        </div>
+                    </div>
+
+                </div>
+
+                <button type="submit" class="btn btn-primary">Salvar</button>
+                <a th:href="@{/}" type="button" class="btn btn-light">Cancelar</a>
+            </form>
+        </div>
+    </body>
+
+</html>
